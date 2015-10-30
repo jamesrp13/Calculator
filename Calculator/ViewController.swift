@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var isTyping = false
+
     var label = UILabel()
     var buttonZero = UIButton()
     var buttonOne = UIButton()
@@ -34,6 +36,18 @@ class ViewController: UIViewController {
         createSecondRow()
         createThirdRow()
         createBottomRow()
+
+        buttonZero.addTarget(self, action: "buttonTapped", forControlEvents: .TouchUpInside)
+        buttonOne.addTarget(self, action: "buttonTapped", forControlEvents: .TouchUpInside)
+        buttonTwo.addTarget(self, action: "buttonTapped", forControlEvents: .TouchUpInside)
+        buttonThree.addTarget(self, action: "buttonTapped", forControlEvents: .TouchUpInside)
+        buttonFour.addTarget(self, action: "buttonTapped", forControlEvents: .TouchUpInside)
+        buttonFive.addTarget(self, action: "buttonTapped", forControlEvents: .TouchUpInside)
+        buttonSix.addTarget(self, action: "buttonTapped", forControlEvents: .TouchUpInside)
+        buttonSeven.addTarget(self, action: "buttonTapped", forControlEvents: .TouchUpInside)
+        buttonEight.addTarget(self, action: "buttonTapped", forControlEvents: .TouchUpInside)
+        buttonNine.addTarget(self, action: "buttonTapped", forControlEvents: .TouchUpInside)
+
     }
 
     func createLabel() {
@@ -41,7 +55,7 @@ class ViewController: UIViewController {
         label.text = ""
         self.view.addSubview(label)
         addLabelConstraints()
-        }
+    }
 
     func createTopRow() {
         buttonSeven.setTitle("7", forState: .Normal)
@@ -127,7 +141,7 @@ class ViewController: UIViewController {
 
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[label]|", options: [], metrics: [:], views: ["label": label]))
 
-//        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(margin)-[label]|", options: [], metrics: ["margin":20.0], views: ["label": label]))
+        //        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(margin)-[label]|", options: [], metrics: ["margin":20.0], views: ["label": label]))
 
         view.addConstraint(NSLayoutConstraint(item: label, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: (1/3), constant: 0))
 
@@ -188,7 +202,7 @@ class ViewController: UIViewController {
         buttonEight.bottomAnchor.constraintEqualToAnchor(buttonFive.topAnchor).active = true
         buttonNine.bottomAnchor.constraintEqualToAnchor(buttonSix.topAnchor).active = true
         buttonDivide.bottomAnchor.constraintEqualToAnchor(buttonMultiply.topAnchor).active = true
-        
+
         view.addConstraint(NSLayoutConstraint(item: buttonFour, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: (1/6), constant: 0))
 
         view.addConstraint(NSLayoutConstraint(item: buttonFive, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: (1/6), constant: 0))
@@ -273,18 +287,26 @@ class ViewController: UIViewController {
         view.addConstraint(NSLayoutConstraint(item: buttonZero, attribute: .Width, relatedBy: .Equal, toItem: self.view, attribute: .Width, multiplier: (1/2), constant: 0))
 
         view.addConstraint(NSLayoutConstraint(item: buttonEnter, attribute: .Width, relatedBy: .Equal, toItem: self.view, attribute: .Width, multiplier: (1/4), constant: 0))
-
+        
         view.addConstraint(NSLayoutConstraint(item: buttonAdd, attribute: .Width, relatedBy: .Equal, toItem: self.view, attribute: .Width, multiplier: (1/4), constant: 0))
-
-
-
     }
-
-    func buttonHeight() {
-
+    
+    
+    
+    
+    
+    func buttonTapped(button: UIButton) {
+        guard let digit = button.currentTitle else { return }
+        let displayText = label.text ?? ""
+        if isTyping {
+            label.text = displayText + digit
+        } else {
+            label.text = digit
+            isTyping = true
+        }
+        
+        
     }
-
-
 }
 
 
