@@ -11,6 +11,16 @@ import UIKit
 class ViewController: UIViewController {
 
     var isTyping = false
+    var displayValue: Float {
+        get {
+            let displayText = label.text ?? ""
+            return (displayText as NSString).floatValue
+        }
+        set {
+            label.text = "\(newValue)"
+            isTyping = false
+        }
+    }
 
     var label = UILabel()
     var buttonZero = UIButton()
@@ -291,10 +301,6 @@ class ViewController: UIViewController {
         view.addConstraint(NSLayoutConstraint(item: buttonAdd, attribute: .Width, relatedBy: .Equal, toItem: self.view, attribute: .Width, multiplier: (1/4), constant: 0))
     }
     
-    
-    
-    
-    
     func buttonTapped(button: UIButton) {
         guard let digit = button.currentTitle else { return }
         let displayText = label.text ?? ""
@@ -308,8 +314,3 @@ class ViewController: UIViewController {
         
     }
 }
-
-
-
-
-
